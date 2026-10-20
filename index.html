@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HTML Email Signature — Abdellah Bayar</title>
+  <style>
+    body{margin:0;background:#f3f5f8;color:#172132;font:15px/1.6 Arial,Helvetica,sans-serif}
+    main{max-width:720px;margin:64px auto;padding:0 24px}
+    .eyebrow{font-size:11px;letter-spacing:2px;color:#2563eb;font-weight:700}
+    h1{font-size:28px;line-height:1.2;letter-spacing:-.6px;margin:12px 0}
+    .intro{color:#596579;margin:0 0 28px}
+    .preview{background:#fff;border:1px solid #dce2eb;border-radius:14px;padding:36px 30px;margin-bottom:24px;overflow:auto}
+    button{border:0;border-radius:7px;background:#2563eb;color:#fff;font:600 14px Arial,Helvetica,sans-serif;padding:13px 20px;cursor:pointer}
+    button:hover{background:#1d4ed8}
+    button:focus-visible{outline:3px solid #93c5fd;outline-offset:3px}
+    #status{font-size:13px;color:#596579;margin-left:12px}
+    ol{padding-left:20px;color:#46546a;font-size:14px}
+    li{margin:8px 0}
+    @media(max-width:450px){main{margin:32px auto;padding:0 16px}.preview{padding:28px 18px}#status{display:block;margin:10px 0 0}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">PERSONAL EMAIL SIGNATURE</div>
+  <h1>Your signature, ready to paste.</h1>
+  <p class="intro">Copy the signature below and paste it into your Gmail signature settings.</p>
+  <div class="preview">
+    <table id="signature" role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;line-height:1.4;">
+      <tbody>
+      <tr>
+        <td style="border-left:3px solid #2563eb;padding:0 0 0 17px;vertical-align:top;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;line-height:1.4;">
+            <tbody>
+            <tr><td style="padding:0 0 4px;color:#172132;font-size:21px;font-weight:700;line-height:1.2;">Abdellah Bayar</td></tr>
+            <tr><td style="padding:0 0 4px;color:#2563eb;font-size:12px;font-weight:700;">IT Technician</td></tr>
+            <tr><td style="padding:0 0 13px;color:#606d7e;font-size:11px;">Systems &nbsp;·&nbsp; Networking &nbsp;·&nbsp; Cybersecurity</td></tr>
+            <tr><td style="padding:0 0 4px;font-size:12px;"><a href="tel:+393204419533" style="color:#344256;text-decoration:none;">+39 320 441 9533</a></td></tr>
+            <tr><td style="padding:0 0 8px;font-size:12px;"><a href="mailto:abdellahbayar02@gmail.com" style="color:#344256;text-decoration:none;">abdellahbayar02@gmail.com</a></td></tr>
+            <tr><td style="padding:0;font-size:12px;"><a href="https://abdellahbayar.com" style="color:#2563eb;text-decoration:none;font-weight:600;">abdellahbayar.com</a><span style="color:#9ca6b5;"> &nbsp;|&nbsp; </span><a href="https://www.linkedin.com/in/abdellah-bayar/" style="color:#2563eb;text-decoration:none;font-weight:600;">LinkedIn</a></td></tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button type="button" id="copy">Copy signature</button><span role="status" id="status" aria-live="polite"></span>
+  <ol>
+    <li>Open Gmail → Settings → See all settings → General → Signature.</li>
+    <li>Click “Create new”, name your signature and paste it into the editor with <strong>Ctrl + V</strong>.</li>
+    <li>Choose it as the default for new emails and replies, then save your changes at the bottom of the settings page.</li>
+  </ol>
+  <p style="color:#596579;font-size:12px;">If the button does not copy the signature, select only the content inside the white preview and press Ctrl + C.</p>
+</main>
+<script>
+  document.getElementById('copy').addEventListener('click', () => {
+    const signature = document.getElementById('signature');
+    const status = document.getElementById('status');
+    const range = document.createRange();
+    range.selectNode(signature);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    function copyRich(event) {
+      event.clipboardData.setData('text/html', signature.outerHTML);
+      event.clipboardData.setData('text/plain', signature.innerText);
+      event.preventDefault();
+    }
+    document.addEventListener('copy', copyRich);
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch {}
+    document.removeEventListener('copy', copyRich);
+    if (copied) {
+      selection.removeAllRanges();
+      status.textContent = 'Signature copied. Paste it into Gmail.';
+    } else {
+      status.textContent = 'Signature selected: press Ctrl + C to copy it.';
+    }
+  });
+</script>
+</body>
+</html>
